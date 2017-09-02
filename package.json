@@ -1,0 +1,15 @@
+{
+  "name": "rtsupport",
+  "version": "1.0.0",
+  "description": "real time nodej",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TAmyG",
+  "license": "ISC"
+}
