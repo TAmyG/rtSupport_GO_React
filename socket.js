@@ -16,7 +16,7 @@ class Socket {
         this.ee.removeListener(name, fn);
     }
     emit(name, data){
-        const name = {name, data};
+        const message = {name, data};
         this.ws.send(message);
     }
     message(e){
