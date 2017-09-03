@@ -3,15 +3,19 @@ import Channel from './Channel.jsx';
 
 class ChannelList extends Component{
     render(){
+        let i = 0;
         const {channel} = this.props;
         return(
             <ul>
                 {
                     this.props.channels.map(chan =>{
-                        <Channel 
-                            channel = {chan}
-                            setChannel = {this.props.setChannel}
-                        />
+                        let cmp = <Channel 
+                                        channel = {chan}
+                                        setChannel = {this.props.setChannel}
+                                        key = {i}
+                                    />;
+                        i++;
+                        return cmp
                     })
                 } 
             </ul>
