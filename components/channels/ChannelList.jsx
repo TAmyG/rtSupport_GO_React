@@ -3,7 +3,6 @@ import Channel from './Channel.jsx';
 
 class ChannelList extends Component{
     render(){
-        let i = 0;
         const {channel} = this.props;
         return(
             <ul>
@@ -16,7 +15,6 @@ class ChannelList extends Component{
                                         {...this.props}
                                         key = {chan.id}
                                     />;
-                        i++;
                         return cmp
                     })
                 } 
