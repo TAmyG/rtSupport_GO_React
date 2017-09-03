@@ -9,7 +9,6 @@ class ChannelForm extends Component{
         node.value = '';
     }
     render(){
-        const {channel} = this.props;
         return(
             <div className = 'form-group'>
                 <form onSubmit = {this.onSubmit.bind(this)}>
