@@ -4,6 +4,7 @@
   "description": "real time nodej",
   "main": "index.js",
   "dependencies": {
+    "event": "^1.0.0",
     "fecha": "^2.3.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2"
