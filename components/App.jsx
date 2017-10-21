@@ -41,7 +41,7 @@ class App extends Component{
     }
     onAddUser(user){
         let {users} =  this.state;
-        user.push(user);
+        users.push(user);
         this.setState({users});
     }
     onEditUser(editUser){
