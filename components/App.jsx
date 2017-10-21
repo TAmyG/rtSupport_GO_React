@@ -13,11 +13,12 @@ class App extends Component{
             messages: [],
             activeChannel: {},
             connected: false
-        }
+        };
     }
     //Websocket methods
     componentDidMount(){
-        let socket =  this.socket =  new Socket();
+        let ws = new WebSocket('ws://localhost:4000')
+        let socket =  this.socket =  new Socket(ws);
         socket.on('connect', this.onConnect.bind(this));
         socket.on('disconnect', this.onDisconnect.bind(this));
         socket.on('channel add', this.onAddChannel.bind(this));
@@ -30,6 +31,13 @@ class App extends Component{
         let {messages} = this.state;
         messages.push(message);
         this.setState({messages});
+    }
+    onRemoveUser(removeUser){
+        let {users} =  this.state;
+        users = users.filter(usr =>{
+            return usr.id !== removeUser.id;
+        });
+        this.setState({users});
     }
     onAddUser(user){
         let {users} =  this.state;
@@ -46,13 +54,6 @@ class App extends Component{
         });
         this.setState({users});
     }
-    onRemoveUser(removeUser){
-        let {users} =  this.state;
-        users = users.filter(usr =>{
-            return usr.id !== removeUser.id;
-        });
-        this.setState({users});
-    }
     onConnect(){
         this.setState({connected: true});
         this.socket.emit('channel subscribe');
@@ -66,27 +67,19 @@ class App extends Component{
         channels.push(channel);
         this.setState({channels});
     }
-    //------------------------------
     addChannel(name){
         this.socket.emit('channel add', {name});
     }
     setChannel(activeChannel){
         this.setState({activeChannel});
-        //TODO: get channel messages from server
         this.socket.emit('message unsubscribe');
         this.setState({messages: []});
         this.socket.emit('message subscribe',{
             channelId: activeChannel.id
         });
     }
-    setUser(name){
+    setUserName(name){
         this.socket.emit('user edit',{name});
-    }
-    addUser(name){
-        let {users} =  this.state;
-        users.push({id: users.length, name});
-        this.setState({users});
-        //TODO: send to server
     }
     addMessage(body){
         let {activeChannel} = this.state;
@@ -107,7 +100,7 @@ class App extends Component{
                     <UserSection 
                         //channels = {this.state.channels}
                         {...this.state}
-                        addUser = {this.addUser.bind(this)}
+                        setUserName = {this.setUserName.bind(this)}
                     />                  
                 </div>
                 <MessageSection

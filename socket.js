@@ -1,10 +1,9 @@
-import {EventEmitter} from 'event';
+import {EventEmitter} from 'events';
 
 class Socket {
     constructor(ws = new WebSocket(), ee = new EventEmitter()){
         this.ws = ws;
         this.ee =  ee;
-
         ws.onmessage = this.message.bind(this);
         ws.onopen = this.open.bind(this);
         ws.onclose = this.close.bind(this);
@@ -16,7 +15,7 @@ class Socket {
         this.ee.removeListener(name, fn);
     }
     emit(name, data){
-        const message = {name, data};
+        const message = JSON.stringify({name, data});
         this.ws.send(message);
     }
     message(e){
